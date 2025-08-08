@@ -9,5 +9,4 @@ public class ApialquilerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApialquilerApplication.class, args);
 	}
-
 }

@@ -1,39 +1,31 @@
-package com.arriendos.apialquiler.model.entity;
+package com.arriendos.apialquiler.model.dto;
 
-import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
-import java.util.List;
 
-@Entity
-@Table(name = "inquilino")
-public class Inquilino {
+public class InquilinoDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idinquilino")
     private Integer idinquilino;
 
-    @Column(name = "nombre")
+    @NotBlank(message = "no campos vacios")
     private String nombre;
 
-    @Column(name = "telefono")
+    @NotBlank(message = "no campos vacios")
     private String telefono;
 
-    @Column(name = "salario")
+    @NotNull(message = "no campos vacios")
+    @DecimalMin(value = "150.00" , message = "no puede ser menor 150.00")
+    @DecimalMax(value = "1000.00" , message = "no puede ser mayor 1000.00")
     private BigDecimal salario;
 
-    @OneToOne(mappedBy = "inquilino")
-    private Contrato contrato;
-
-    public Inquilino() {
+    public InquilinoDTO() {
     }
 
-    public Inquilino(String nombre, String telefono, BigDecimal salario, Contrato contrato) {
+    public InquilinoDTO(String nombre, String telefono, BigDecimal salario) {
         this.nombre = nombre;
         this.telefono = telefono;
         this.salario = salario;
-        this.contrato = contrato;
     }
 
     public Integer getIdinquilino() {
@@ -67,12 +59,5 @@ public class Inquilino {
     public void setSalario(BigDecimal salario) {
         this.salario = salario;
     }
-
-    public Contrato getContrato() {
-        return contrato;
-    }
-
-    public void setContrato(Contrato contrato) {
-        this.contrato = contrato;
-    }
 }
+
